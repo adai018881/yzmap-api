@@ -1,0 +1,1125 @@
+/* required styles */
+
+.yzmap-pane,
+.yzmap-tile,
+.yzmap-marker-icon,
+.yzmap-marker-shadow,
+.yzmap-tile-container,
+.yzmap-pane>svg,
+.yzmap-pane>canvas,
+.yzmap-zoom-box,
+.yzmap-image-layer,
+.yzmap-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.yzmap-container {
+    overflow: hidden;
+}
+
+.yzmap-tile,
+.yzmap-marker-icon,
+.yzmap-marker-shadow {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+
+/* Prevents IE11 from highlighting tiles in blue */
+
+.yzmap-tile::selection {
+    background: transparent;
+}
+
+
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+
+.yzmap-safari .yzmap-tile {
+    image-rendering: -webkit-optimize-contrast;
+}
+
+
+/* hack that prevents hw layers "stretching" when loading new tiles */
+
+.yzmap-safari .yzmap-tile-container {
+    width: 1600px;
+    height: 1600px;
+    -webkit-transform-origin: 0 0;
+}
+
+.yzmap-marker-icon,
+.yzmap-marker-shadow {
+    display: block;
+}
+
+
+/* .yzmap-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+
+
+/* .yzmap-container img: map is broken in FF if you have max-width: 100% on tiles */
+
+.yzmap-container .yzmap-overlay-pane svg,
+.yzmap-container .yzmap-marker-pane img,
+.yzmap-container .yzmap-shadow-pane img,
+.yzmap-container .yzmap-tile-pane img,
+.yzmap-container img.yzmap-image-layer,
+.yzmap-container .yzmap-tile {
+    max-width: none !important;
+    max-height: none !important;
+}
+
+.yzmap-container.yzmap-touch-zoom {
+    -ms-touch-action: pan-x pan-y;
+    touch-action: pan-x pan-y;
+}
+
+.yzmap-container.yzmap-touch-drag {
+    -ms-touch-action: pinch-zoom;
+    /* Fallback for FF which doesn't support pinch-zoom */
+    touch-action: none;
+    touch-action: pinch-zoom;
+}
+
+.yzmap-container.yzmap-touch-drag.yzmap-touch-zoom {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
+.yzmap-container {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.yzmap-container a {
+    -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+
+.yzmap-tile {
+    filter: inherit;
+    visibility: hidden;
+}
+
+.yzmap-tile-loaded {
+    visibility: inherit;
+}
+
+.yzmap-zoom-box {
+    width: 0;
+    height: 0;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 800;
+}
+
+
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+
+.yzmap-overlay-pane svg {
+    -moz-user-select: none;
+}
+
+.yzmap-pane {
+    z-index: 400;
+}
+
+.yzmap-tile-pane {
+    z-index: 200;
+}
+
+.yzmap-overlay-pane {
+    z-index: 400;
+}
+
+.yzmap-shadow-pane {
+    z-index: 500;
+}
+
+.yzmap-marker-pane {
+    z-index: 600;
+}
+
+.yzmap-tooltip-pane {
+    z-index: 650;
+}
+
+.yzmap-popup-pane {
+    z-index: 700;
+}
+
+.yzmap-map-pane canvas {
+    z-index: 100;
+}
+
+.yzmap-map-pane svg {
+    z-index: 200;
+}
+
+.yzmap-vml-shape {
+    width: 1px;
+    height: 1px;
+}
+
+.lvml {
+    behavior: url(#default#VML);
+    display: inline-block;
+    position: absolute;
+}
+
+
+/* control positioning */
+
+.yzmap-control {
+    position: relative;
+    z-index: 800;
+    pointer-events: visiblePainted;
+    /* IE 9-10 doesn't have auto */
+    pointer-events: auto;
+}
+
+.yzmap-top,
+.yzmap-bottom {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.yzmap-top {
+    top: 0;
+}
+
+.yzmap-right {
+    right: 0;
+}
+
+.yzmap-bottom {
+    bottom: 0;
+}
+
+.yzmap-left {
+    left: 0;
+}
+
+.yzmap-control {
+    float: left;
+    clear: both;
+}
+
+.yzmap-right .yzmap-control {
+    float: right;
+}
+
+.yzmap-top .yzmap-control {
+    margin-top: 10px;
+}
+
+.yzmap-bottom .yzmap-control {
+    margin-bottom: 10px;
+}
+
+.yzmap-left .yzmap-control {
+    margin-left: 10px;
+}
+
+.yzmap-right .yzmap-control {
+    margin-right: 10px;
+}
+
+
+/* zoom and fade animations */
+
+.yzmap-fade-anim .yzmap-tile {
+    will-change: opacity;
+}
+
+.yzmap-fade-anim .yzmap-popup {
+    opacity: 0;
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+}
+
+.yzmap-fade-anim .yzmap-map-pane .yzmap-popup {
+    opacity: 1;
+}
+
+.yzmap-zoom-animated {
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+.yzmap-zoom-anim .yzmap-zoom-animated {
+    will-change: transform;
+}
+
+.yzmap-zoom-anim .yzmap-zoom-animated {
+    -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+    -moz-transition: -moz-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+    transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+}
+
+.yzmap-zoom-anim .yzmap-tile,
+.yzmap-pan-anim .yzmap-tile {
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+}
+
+.yzmap-zoom-anim .yzmap-zoom-hide {
+    visibility: hidden;
+}
+
+
+/* cursors */
+
+.yzmap-interactive {
+    cursor: pointer;
+}
+
+.yzmap-grab {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+
+.yzmap-crosshair,
+.yzmap-crosshair .yzmap-interactive {
+    cursor: crosshair;
+}
+
+.yzmap-popup-pane,
+.yzmap-control {
+    cursor: auto;
+}
+
+.yzmap-dragging .yzmap-grab,
+.yzmap-dragging .yzmap-grab .yzmap-interactive,
+.yzmap-dragging .yzmap-marker-draggable {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
+
+
+/* marker & overlays interactivity */
+
+.yzmap-marker-icon,
+.yzmap-marker-shadow,
+.yzmap-image-layer,
+.yzmap-pane>svg path,
+.yzmap-tile-container {
+    pointer-events: none;
+}
+
+.yzmap-marker-icon.yzmap-interactive,
+.yzmap-image-layer.yzmap-interactive,
+.yzmap-pane>svg path.yzmap-interactive,
+svg.yzmap-image-layer.yzmap-interactive path {
+    pointer-events: visiblePainted;
+    /* IE 9-10 doesn't have auto */
+    pointer-events: auto;
+}
+
+
+/* visual tweaks */
+
+.yzmap-container {
+    background: #e6fbf5;
+    outline: 0;
+}
+
+.yzmap-container a {
+    color: #0078A8;
+}
+
+.yzmap-container a.yzmap-active {
+    outline: 2px solid orange;
+}
+
+.yzmap-zoom-box {
+    border: 2px dotted #38f;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+
+/* general typography */
+
+.yzmap-container {
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+
+/* general toolbar styles */
+
+.yzmap-bar {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+    border-radius: 4px;
+}
+
+.yzmap-bar a,
+.yzmap-bar a:hover {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.yzmap-bar a,
+.yzmap-control-layers-toggle {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.yzmap-bar a:hover {
+    background-color: #f4f4f4;
+}
+
+.yzmap-bar a:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.yzmap-bar a:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom: none;
+}
+
+.yzmap-bar a.yzmap-disabled {
+    cursor: default;
+    background-color: #f4f4f4;
+    color: #bbb;
+}
+
+.yzmap-touch .yzmap-bar a {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.yzmap-touch .yzmap-bar a:first-child {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.yzmap-touch .yzmap-bar a:last-child {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+
+/* zoom control */
+
+.yzmap-control-zoom-in,
+.yzmap-control-zoom-out {
+    font: bold 18px 'Lucida Console', Monaco, monospace;
+    text-indent: 1px;
+}
+
+.yzmap-touch .yzmap-control-zoom-in,
+.yzmap-touch .yzmap-control-zoom-out {
+    font-size: 22px;
+}
+
+
+/* layers control */
+
+.yzmap-control-layers {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    border-radius: 5px;
+}
+
+.yzmap-control-layers-toggle {
+    background-image: url(images/layers.png);
+    width: 36px;
+    height: 36px;
+}
+
+.yzmap-retina .yzmap-control-layers-toggle {
+    background-image: url(images/layers-2x.png);
+    background-size: 26px 26px;
+}
+
+.yzmap-touch .yzmap-control-layers-toggle {
+    width: 44px;
+    height: 44px;
+}
+
+.yzmap-control-layers .yzmap-control-layers-list,
+.yzmap-control-layers-expanded .yzmap-control-layers-toggle {
+    display: none;
+}
+
+.yzmap-control-layers-expanded .yzmap-control-layers-list {
+    display: block;
+    position: relative;
+}
+
+.yzmap-control-layers-expanded {
+    padding: 6px 10px 6px 6px;
+    color: #333;
+    background: #fff;
+}
+
+.yzmap-control-layers-scrollbar {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+.yzmap-control-layers-selector {
+    margin-top: 2px;
+    position: relative;
+    top: 1px;
+}
+
+.yzmap-control-layers label {
+    display: block;
+}
+
+.yzmap-control-layers-separator {
+    height: 0;
+    border-top: 1px solid #ddd;
+    margin: 5px -10px 5px -6px;
+}
+
+
+/* Default icon URLs */
+
+.yzmap-default-icon-path {
+    background-image: url(images/marker-icon.png);
+}
+
+
+/* attribution and scale controls */
+
+.yzmap-container .yzmap-control-attribution {
+    background: #fff;
+    background: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.yzmap-control-attribution,
+.yzmap-control-scale-line {
+    padding: 0 5px;
+    color: #333;
+}
+
+.yzmap-control-attribution a {
+    text-decoration: none;
+}
+
+.yzmap-control-attribution a:hover {
+    text-decoration: underline;
+}
+
+.yzmap-container .yzmap-control-attribution,
+.yzmap-container .yzmap-control-scale {
+    font-size: 11px;
+}
+
+.yzmap-left .yzmap-control-scale {
+    margin-left: 5px;
+}
+
+.yzmap-bottom .yzmap-control-scale {
+    margin-bottom: 5px;
+}
+
+.yzmap-control-scale-line {
+    border: 2px solid #777;
+    border-top: none;
+    line-height: 1.1;
+    padding: 2px 5px 1px;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.yzmap-control-scale-line:not(:first-child) {
+    border-top: 2px solid #777;
+    border-bottom: none;
+    margin-top: -2px;
+}
+
+.yzmap-control-scale-line:not(:first-child):not(:last-child) {
+    border-bottom: 2px solid #777;
+}
+
+.yzmap-touch .yzmap-control-attribution,
+.yzmap-touch .yzmap-control-layers,
+.yzmap-touch .yzmap-bar {
+    box-shadow: none;
+}
+
+.yzmap-touch .yzmap-control-layers,
+.yzmap-touch .yzmap-bar {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+}
+
+
+/* popup */
+
+.yzmap-popup {
+    position: absolute;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.yzmap-popup-content-wrapper {
+    padding: 1px;
+    text-align: left;
+    border-radius: 12px;
+}
+
+.yzmap-popup-content {
+    margin: 13px 19px;
+    line-height: 1.4;
+}
+
+.yzmap-popup-content p {
+    margin: 18px 0;
+}
+
+.yzmap-popup-tip-container {
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.yzmap-popup-tip {
+    width: 17px;
+    height: 17px;
+    padding: 1px;
+    margin: -10px auto 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.yzmap-popup-content-wrapper,
+.yzmap-popup-tip {
+    background: white;
+    color: #333;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+.yzmap-container a.yzmap-popup-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px 4px 0 0;
+    border: none;
+    text-align: center;
+    width: 18px;
+    height: 14px;
+    font: 16px/14px Tahoma, Verdana, sans-serif;
+    color: #c3c3c3;
+    text-decoration: none;
+    font-weight: bold;
+    background: transparent;
+}
+
+.yzmap-container a.yzmap-popup-close-button:hover {
+    color: #999;
+}
+
+.yzmap-popup-scrolled {
+    overflow: auto;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+.yzmap-oldie .yzmap-popup-content-wrapper {
+    zoom: 1;
+}
+
+.yzmap-oldie .yzmap-popup-tip {
+    width: 24px;
+    margin: 0 auto;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+    filter: progid: DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+}
+
+.yzmap-oldie .yzmap-popup-tip-container {
+    margin-top: -1px;
+}
+
+.yzmap-oldie .yzmap-control-zoom,
+.yzmap-oldie .yzmap-control-layers,
+.yzmap-oldie .yzmap-popup-content-wrapper,
+.yzmap-oldie .yzmap-popup-tip {
+    border: 1px solid #999;
+}
+
+
+/* div icon */
+
+.yzmap-div-icon {
+    background: #fff;
+    border: 1px solid #666;
+    border-radius: 5px;
+}
+
+
+/* Tooltip */
+
+
+/* Base styles for the element that has a tooltip */
+
+.yzmap-tooltip {
+    position: absolute;
+    padding: 6px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #222;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.yzmap-tooltip.yzmap-clickable {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.yzmap-tooltip-top:before,
+.yzmap-tooltip-bottom:before,
+.yzmap-tooltip-left:before,
+.yzmap-tooltip-right:before {
+    position: absolute;
+    pointer-events: none;
+    border: 6px solid transparent;
+    background: transparent;
+    content: "";
+}
+
+
+/* Directions */
+
+.yzmap-tooltip-bottom {
+    margin-top: 6px;
+}
+
+.yzmap-tooltip-top {
+    margin-top: -6px;
+}
+
+.yzmap-tooltip-bottom:before,
+.yzmap-tooltip-top:before {
+    left: 50%;
+    margin-left: -6px;
+}
+
+.yzmap-tooltip-top:before {
+    bottom: 0;
+    margin-bottom: -12px;
+    border-top-color: #fff;
+}
+
+.yzmap-tooltip-bottom:before {
+    top: 0;
+    margin-top: -12px;
+    margin-left: -6px;
+    border-bottom-color: #fff;
+}
+
+.yzmap-tooltip-left {
+    margin-left: -6px;
+}
+
+.yzmap-tooltip-right {
+    margin-left: 6px;
+}
+
+.yzmap-tooltip-left:before,
+.yzmap-tooltip-right:before {
+    top: 50%;
+    margin-top: -6px;
+}
+
+.yzmap-tooltip-left:before {
+    right: 0;
+    margin-right: -12px;
+    border-left-color: #fff;
+}
+
+.yzmap-tooltip-right:before {
+    left: 0;
+    margin-left: -12px;
+    border-right-color: #fff;
+}
+
+
+/* ================================================================== */
+
+
+/* Toolbars
+/* ================================================================== */
+
+.yzmap-draw-section {
+    position: relative;
+}
+
+.yzmap-draw-toolbar {
+    margin-top: 12px;
+}
+
+.yzmap-draw-toolbar-top {
+    margin-top: 0;
+}
+
+.yzmap-draw-toolbar-notop a:first-child {
+    border-top-right-radius: 0;
+}
+
+.yzmap-draw-toolbar-nobottom a:last-child {
+    border-bottom-right-radius: 0;
+}
+
+.yzmap-draw-toolbar a {
+    background-image: url('images/spritesheet.png');
+    background-image: linear-gradient(transparent, transparent), url('images/spritesheet.svg');
+    background-repeat: no-repeat;
+    background-size: 300px 30px;
+    background-clip: padding-box;
+}
+
+.yzmap-retina .yzmap-draw-toolbar a {
+    background-image: url('images/spritesheet-2x.png');
+    background-image: linear-gradient(transparent, transparent), url('images/spritesheet.svg');
+}
+
+.yzmap-draw a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.yzmap-draw a .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+
+/* ================================================================== */
+
+
+/* Toolbar actions menu
+/* ================================================================== */
+
+.yzmap-draw-actions {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 26px;
+    /* yzmap-draw-toolbar.left + yzmap-draw-toolbar.width */
+    top: 0;
+    white-space: nowrap;
+}
+
+.yzmap-touch .yzmap-draw-actions {
+    left: 32px;
+}
+
+.yzmap-right .yzmap-draw-actions {
+    right: 26px;
+    left: auto;
+}
+
+.yzmap-touch .yzmap-right .yzmap-draw-actions {
+    right: 32px;
+    left: auto;
+}
+
+.yzmap-draw-actions li {
+    display: inline-block;
+}
+
+.yzmap-draw-actions li:first-child a {
+    border-left: none;
+}
+
+.yzmap-draw-actions li:last-child a {
+    -webkit-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.yzmap-right .yzmap-draw-actions li:last-child a {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.yzmap-right .yzmap-draw-actions li:first-child a {
+    -webkit-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+}
+
+.yzmap-draw-actions a {
+    background-color: #919187;
+    border-left: 1px solid #AAA;
+    color: #FFF;
+    font: 11px/19px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    line-height: 28px;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 28px;
+}
+
+.yzmap-touch .yzmap-draw-actions a {
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+}
+
+.yzmap-draw-actions-bottom {
+    margin-top: 0;
+}
+
+.yzmap-draw-actions-top {
+    margin-top: 1px;
+}
+
+.yzmap-draw-actions-top a,
+.yzmap-draw-actions-bottom a {
+    height: 27px;
+    line-height: 27px;
+}
+
+.yzmap-draw-actions a:hover {
+    background-color: #A0A098;
+}
+
+.yzmap-draw-actions-top.yzmap-draw-actions-bottom a {
+    height: 26px;
+    line-height: 26px;
+}
+
+
+/* ================================================================== */
+
+
+/* Draw toolbar
+/* ================================================================== */
+
+.yzmap-draw-toolbar .yzmap-draw-draw-polyline {
+    background-position: -2px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-draw-polyline {
+    background-position: 0 -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-draw-polygon {
+    background-position: -31px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-draw-polygon {
+    background-position: -29px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-draw-rectangle {
+    background-position: -62px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-draw-rectangle {
+    background-position: -60px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-draw-circle {
+    background-position: -92px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-draw-circle {
+    background-position: -90px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-draw-marker {
+    background-position: -122px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-draw-marker {
+    background-position: -120px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-draw-circlemarker {
+    background-position: -273px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-draw-circlemarker {
+    background-position: -271px -1px;
+}
+
+
+/* ================================================================== */
+
+
+/* Edit toolbar
+/* ================================================================== */
+
+.yzmap-draw-toolbar .yzmap-draw-edit-edit {
+    background-position: -152px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-edit-edit {
+    background-position: -150px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-edit-remove {
+    background-position: -182px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-edit-remove {
+    background-position: -180px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-edit-edit.yzmap-disabled {
+    background-position: -212px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-edit-edit.yzmap-disabled {
+    background-position: -210px -1px;
+}
+
+.yzmap-draw-toolbar .yzmap-draw-edit-remove.yzmap-disabled {
+    background-position: -242px -2px;
+}
+
+.yzmap-touch .yzmap-draw-toolbar .yzmap-draw-edit-remove.yzmap-disabled {
+    background-position: -240px -2px;
+}
+
+
+/* ================================================================== */
+
+
+/* Drawing styles
+/* ================================================================== */
+
+.yzmap-mouse-marker {
+    background-color: #fff;
+    cursor: crosshair;
+}
+
+.yzmap-draw-tooltip {
+    background: rgb(54, 54, 54);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid transparent;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    color: #fff;
+    font: 12px/18px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    margin-left: 20px;
+    margin-top: -21px;
+    padding: 4px 8px;
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    z-index: 6;
+}
+
+.yzmap-draw-tooltip:before {
+    border-right: 6px solid black;
+    border-right-color: rgba(0, 0, 0, 0.5);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: -7px;
+}
+
+.yzmap-error-draw-tooltip {
+    background-color: #F2DEDE;
+    border: 1px solid #E6B6BD;
+    color: #B94A48;
+}
+
+.yzmap-error-draw-tooltip:before {
+    border-right-color: #E6B6BD;
+}
+
+.yzmap-draw-tooltip-single {
+    margin-top: -12px
+}
+
+.yzmap-draw-tooltip-subtext {
+    color: #f8d5e4;
+}
+
+.yzmap-draw-guide-dash {
+    font-size: 1%;
+    opacity: 0.6;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+}
+
+
+/* ================================================================== */
+
+
+/* Edit styles
+/* ================================================================== */
+
+.yzmap-edit-marker-selected {
+    background-color: rgba(254, 87, 161, 0.1);
+    border: 4px dashed rgba(254, 87, 161, 0.6);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    box-sizing: content-box;
+}
+
+.yzmap-edit-move {
+    cursor: move;
+}
+
+.yzmap-edit-resize {
+    cursor: pointer;
+}
+
+
+/* ================================================================== */
+
+
+/* Old IE styles
+/* ================================================================== */
+
+.yzmap-oldie .yzmap-draw-toolbar {
+    border: 1px solid #999;
+}
