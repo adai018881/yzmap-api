@@ -1,0 +1,20 @@
+#yzmap-custom-toolbar{
+  text-align: center;
+  display: flex;
+  background: white;
+  line-height: 30px;
+  border: 2px solid #c2c1be;
+  border-radius: 5px
+}
+#yzmap-custom-toolbar a{
+  height:30px;
+  width:30px;
+  position:inherit;
+  border-right: 1px solid #c2c1be
+}
+#yzmap-custom-toolbar a:last-child{
+  border-right: none
+}
+#yzmap-custom-toolbar a:hover{
+  cursor: pointer;
+}

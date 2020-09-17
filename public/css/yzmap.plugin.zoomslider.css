@@ -1,0 +1,139 @@
+/** Slider **/
+.yzmap-touch .yzmap-control-layers, .yzmap-touch .yzmap-bar{
+	border: none;
+}
+.yzmap-control-zoomslider-wrap {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: rgba(255,255,255,0);
+	/* border-bottom: 1px solid #ccc; */
+}
+.yzmap-control-zoomslider-body {
+	margin: 0 auto;
+	width: 30px;
+}
+.yzmap-control-zoomslider-bone-container{
+	position: absolute;
+	width: 100%;
+	margin-top: -2px;
+  margin-left: 25%;
+}
+.yzmap-control-zoomslider-bone-line{
+	position: absolute;
+	width: 3px;
+	height: 71%;
+	background: green;
+	margin-left: 48%;
+}
+.yzmap-control-zoomslider-bone {
+	width: 50%;
+	border-bottom: 2px solid green;
+}
+.yzmap-control-zoomslider-knob {
+	position: relative;
+	width: 8px;
+	height: 8px;
+	background-color: #efefef;
+	-webkit-border-radius: 2px;
+	border-radius: 8px;
+	border: 1px solid #a5a5a5;
+	margin-left: 33%;
+}
+.yzmap-control-zoomslider-body:hover {
+	cursor: pointer;
+}
+.yzmap-control-zoomslider-knob:hover {
+	cursor: default;
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+}
+
+.yzmap-dragging .yzmap-control-zoomslider,
+.yzmap-dragging .yzmap-control-zoomslider-wrap,
+.yzmap-dragging .yzmap-control-zoomslider-body,
+.yzmap-dragging .yzmap-control-zoomslider a,
+.yzmap-dragging .yzmap-control-zoomslider a.yzmap-control-zoomslider-disabled,
+.yzmap-dragging .yzmap-control-zoomslider-knob:hover  {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+}
+
+/** yzmap Zoom Styles **/
+.yzmap-container .yzmap-control-zoomslider {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.yzmap-control-zoomslider a {
+	width: 26px;
+	height: 26px;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	display: block;
+}
+.yzmap-control-zoomslider a:hover {
+	background-color: #f4f4f4;
+}
+.yzmap-control-zoomslider-in {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+}
+.yzmap-control-zoomslider-in:after{
+	content:"\002B"
+}
+.yzmap-control-zoomslider-out {
+	font: bold 22px 'Lucida Console', Monaco, monospace;
+}
+.yzmap-control-zoomslider-out:after{
+	content:"\2212"
+}
+.yzmap-control-zoomslider a.yzmap-control-zoomslider-disabled {
+	cursor: default;
+	color: #bbb;
+}
+
+/* Touch */
+.yzmap-touch .yzmap-control-zoomslider-body {
+	background-position: 10px 0px;
+}
+.yzmap-touch .yzmap-control-zoomslider-knob {
+	width: 8px;
+	/* margin-left: -4px; */
+}
+.yzmap-touch .yzmap-control-zoomslider a {
+	width: 30px;
+	line-height: 30px;
+}
+.yzmap-touch .yzmap-control-zoomslider a:hover {
+	width: 30px;
+	line-height: 30px;
+}
+.yzmap-touch .yzmap-control-zoomslider-in {
+	font-size: 24px;
+	line-height: 29px;
+}
+.yzmap-touch .yzmap-control-zoomslider-out {
+	font-size: 28px;
+	line-height: 30px;
+}
+.yzmap-touch .yzmap-control-zoomslider {
+	box-shadow: none;
+	/* border: 4px solid rgba(0,0,0,0.3); */
+}
+
+/* Old IE */
+
+.yzmap-oldie .yzmap-control-zoomslider-wrap {
+	width: 26px;
+}
+
+.yzmap-oldie .yzmap-control-zoomslider {
+	border: 1px solid #999;
+}
+
+.yzmap-oldie .yzmap-control-zoomslider-in {
+	*zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '\u002B');
+}
+.yzmap-oldie .yzmap-control-zoomslider-out {
+	*zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '\u2212');
+}
